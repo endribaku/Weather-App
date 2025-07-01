@@ -19,7 +19,11 @@ form.addEventListener("submit", function(event) {
 // render clock time information;
 function renderCurrentDateTime(weatherData) {
 
-    const currentTime = new Date().toLocaleTimeString("en-GB", { timeZone: weatherData.timezone}, {hour: '2-digit', minute:'2-digit'}, );
+    const currentTime = new Date().toLocaleTimeString("en-GB", {
+    timeZone: weatherData.timezone,
+    hour: '2-digit',
+    minute: '2-digit'
+    });
     
     const currentDate = new Date().toLocaleDateString("en-GB", {
         timeZone: weatherData.timezone,
