@@ -1,12 +1,17 @@
 // N27MCEFFV658SR3P6KP7X73PQ
 
 export async function getWeatherData(location) {
-    const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=N27MCEFFV658SR3P6KP7X73PQ&contentType=json`, {mode: 'cors'});
-    const weatherData = await response.json();
-    console.log(weatherData);
-    const weatherComponents = getWeatherComponents(weatherData);
-    console.log(weatherComponents);
-    return weatherComponents;
+    try {
+        const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=N27MCEFFV658SR3P6KP7X73PQ&contentType=json`, {mode: 'cors'});
+        const weatherData = await response.json();
+        console.log(weatherData);
+        const weatherComponents = getWeatherComponents(weatherData);
+        console.log(weatherComponents);
+        return weatherComponents;
+    } catch (error) {
+        throw new Error("Unavailable Location or not Existing.");
+    }
+    
 }
 
 function getWeatherComponents(data) {
