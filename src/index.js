@@ -63,7 +63,6 @@ temperatureSwitchToggle.addEventListener("change", function() {
     } else {
         temperatureContent.textContent = "Celsius";
     }
-
     if(location) {
         checkWeatherLocation(location);
     }
@@ -219,6 +218,7 @@ function weatherDescription(weatherData) {
 
     const temperatureDescriptionText = document.createElement("p");
     temperatureDescriptionText.classList.add("temperature-description");
+    temperatureDescriptionText.classList.add("temperature");
     temperatureDescriptionText.textContent = isFahrenheit ? temperature + "°F" : temperatureToCelsius(temperature).toFixed(1).toString().concat("°C");
  
     const locationDescriptionText = document.createElement("p");
@@ -241,6 +241,7 @@ function weatherDescription(weatherData) {
 
 function renderWeatherData(weatherData) {
     removeLoadingScreen();
+    weatherContainer.innerHTML = "";
     renderCurrentDateTime(weatherData);
     showLocationName(weatherData);
     determineDayOrNight(weatherData)
