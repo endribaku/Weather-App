@@ -98,6 +98,8 @@ body {
     color:white;
     max-width: 30vw;
     min-width: 480px;
+    min-height: 620px;
+    opacity: 1;
 
     /* From https://css.glass */
     background: rgba(255, 255, 255, 0);
@@ -233,4 +235,15 @@ input:checked + .slider:before {
 .conditions-description {
     font-size: 1.5rem;
     margin: 0;
+}
+
+.loading {
+    font-size: 3rem;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }

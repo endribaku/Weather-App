@@ -5,44 +5,53 @@ import nightImage from './images/night.png';
 import dayImage from './images/day.png';
 
 //importing icons
-import clearDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/clear-day.svg';
-import clearNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/clear-night.svg';
-import cloudy from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/cloudy.svg';
-import fog from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/fog.svg';
-import hail from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/hail.svg';
-import partlyCloudyDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/partly-cloudy-day.svg';
-import partlyCloudyNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/partly-cloudy-night.svg';
-import rainSnowShowersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain-snow-showers-day.svg';
-import rainSnowShowersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain-snow-showers-night.svg';
-import rainSnow from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain-snow.svg';
-import rain from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain.svg';
-import showersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/showers-day.svg';
-import showersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/showers-night.svg';
-import sleet from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/sleet.svg';
-import snowShowersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/snow-showers-day.svg';
-import snowShowersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/snow-showers-night.svg';
-import snow from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/snow.svg';
-import thunderRain from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder-rain.svg';
-import thunderShowersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder-showers-day.svg';
-import thunderShowersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder-showers-night.svg';
-import thunder from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder.svg';
-import wind from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/wind.svg';
+// import clearDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/clear-day.svg';
+// import clearNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/clear-night.svg';
+// import cloudy from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/cloudy.svg';
+// import fog from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/fog.svg';
+// import hail from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/hail.svg';
+// import partlyCloudyDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/partly-cloudy-day.svg';
+// import partlyCloudyNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/partly-cloudy-night.svg';
+// import rainSnowShowersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain-snow-showers-day.svg';
+// import rainSnowShowersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain-snow-showers-night.svg';
+// import rainSnow from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain-snow.svg';
+// import rain from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/rain.svg';
+// import showersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/showers-day.svg';
+// import showersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/showers-night.svg';
+// import sleet from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/sleet.svg';
+// import snowShowersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/snow-showers-day.svg';
+// import snowShowersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/snow-showers-night.svg';
+// import snow from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/snow.svg';
+// import thunderRain from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder-rain.svg';
+// import thunderShowersDay from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder-showers-day.svg';
+// import thunderShowersNight from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder-showers-night.svg';
+// import thunder from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/thunder.svg';
+// import wind from './images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/wind.svg';
 
 
 
 const form = document.querySelector(".weather-location-form");
 const mainContainer = document.querySelector(".main-container");
-const weatherContainer = document.querySelector(".weather-data");
+
+const weatherContainer = document.createElement("div");
+weatherContainer.classList.add("weather-data");
+
 const temperatureSwitchToggle = document.querySelector("#checkbox");
-const temperatureContent = document.querySelector(".temperature")
+const temperatureContent = document.querySelector(".temperature");
+const loading = document.querySelector(".loading");
 
 let location = null;
 
 let isFahrenheit = true;
 
 
+
+
 form.addEventListener("submit", function(event) {
     event.preventDefault();
+    weatherContainer.innerHTML = "";
+    createLoadingScreen();
+    mainContainer.prepend(weatherContainer);
     location = form.querySelector(".weather-location-name").value.trim();
     checkWeatherLocation(location)
 })
@@ -51,21 +60,20 @@ temperatureSwitchToggle.addEventListener("change", function() {
     isFahrenheit = !isFahrenheit;
     if(isFahrenheit) {
         temperatureContent.textContent = "Fahrenheit";
-        if(location) {
-            checkWeatherLocation(location);
-        }
-        
     } else {
         temperatureContent.textContent = "Celsius";
-        if(location) {
-            checkWeatherLocation(location);
-        }
+    }
+
+    if(location) {
+        checkWeatherLocation(location);
     }
 })
 
 function temperatureToCelsius(fahrenheit) {
     return (fahrenheit - 32) * 5/9;
 }
+
+
 
 // render clock time information;
 function renderCurrentDateTime(weatherData) {
@@ -100,8 +108,28 @@ function renderCurrentDateTime(weatherData) {
 }
 
 
+function createLoadingScreen() {
+    const loading = document.createElement("div");
+    loading.classList.add("loading");
+    loading.textContent = "Loading...";
+    weatherContainer.appendChild(loading);
+}
+
+function removeLoadingScreen() {
+    const loading = document.querySelector(".loading");
+    if(weatherContainer.contains(loading)) {
+        loading.remove();
+    }
+}
+
 function determineDayOrNight(weatherData) {
-    const currentTime = new Date().toLocaleTimeString("en-GB", { timeZone: weatherData.timezone}, {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+    const currentTime = new Date().toLocaleTimeString("en-GB", {
+        timeZone: weatherData.timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false 
+    });
     console.log(currentTime);
     const isNight = currentTime >= weatherData.currentConditions.sunset || currentTime <= weatherData.currentConditions.sunrise;
      
@@ -130,6 +158,8 @@ function showLocationName(weatherData) {
 
 async function checkWeatherLocation(location) {
     let weatherData = null;
+
+
     try {
         weatherData = await getWeatherData(location);
     } catch(e) {
@@ -139,43 +169,46 @@ async function checkWeatherLocation(location) {
     renderWeatherData(weatherData)
 }
 
+async function setIcon(weatherIconName, icon) {
+    const iconModule = await import(`./images/WeatherIcons/WeatherIcons-main/SVG/3rd Set - Color/${weatherIconName}.svg`);
+    const iconPath = iconModule.default;
+    icon.src = iconPath;
+}
+
 function renderIcon(weatherData) {
     const weatherIconName = weatherData.currentConditions.icon;
-
     const imageContainer = document.createElement("div");
     imageContainer.classList.add("image-container");
     
-    const iconSrc = {
-        "clear-day": clearDay,
-        "clear-night": clearNight,
-        "cloudy": cloudy,
-        "fog": fog,
-        "hail": hail,
-        "partly-cloudy-day": partlyCloudyDay,
-        "partly-cloudy-night": partlyCloudyNight,
-        "rain-snow-showers-day": rainSnowShowersDay,
-        "rain-snow-showers-night": rainSnowShowersNight,
-        "rain-snow": rainSnow,
-        "rain": rain,
-        "showers-day": showersDay,
-        "showers-night": showersNight,
-        "sleet": sleet,
-        "snow-showers-day": snowShowersDay,
-        "snow-showers-night": snowShowersNight,
-        "snow": snow,
-        "thunder-rain": thunderRain,
-        "thunder-showers-day": thunderShowersDay,
-        "thunder-showers-night": thunderShowersNight,
-        "thunder": thunder,
-        "wind": wind
-    }
-
+    // const iconSrc = {
+    //     "clear-day": clearDay,
+    //     "clear-night": clearNight,
+    //     "cloudy": cloudy,
+    //     "fog": fog,
+    //     "hail": hail,
+    //     "partly-cloudy-day": partlyCloudyDay,
+    //     "partly-cloudy-night": partlyCloudyNight,
+    //     "rain-snow-showers-day": rainSnowShowersDay,
+    //     "rain-snow-showers-night": rainSnowShowersNight,
+    //     "rain-snow": rainSnow,
+    //     "rain": rain,
+    //     "showers-day": showersDay,
+    //     "showers-night": showersNight,
+    //     "sleet": sleet,
+    //     "snow-showers-day": snowShowersDay,
+    //     "snow-showers-night": snowShowersNight,
+    //     "snow": snow,
+    //     "thunder-rain": thunderRain,
+    //     "thunder-showers-day": thunderShowersDay,
+    //     "thunder-showers-night": thunderShowersNight,
+    //     "thunder": thunder,
+    //     "wind": wind
+    // }
     const icon = document.createElement("img");
     icon.classList.add("weather-icon");
-    icon.src = iconSrc[weatherIconName];
-
     imageContainer.appendChild(icon);
     weatherContainer.appendChild(imageContainer);
+    setIcon(weatherIconName, icon);
 }
 
 function weatherDescription(weatherData) {
@@ -207,7 +240,7 @@ function weatherDescription(weatherData) {
 
 
 function renderWeatherData(weatherData) {
-    weatherContainer.innerHTML = "";
+    removeLoadingScreen();
     renderCurrentDateTime(weatherData);
     showLocationName(weatherData);
     determineDayOrNight(weatherData)
