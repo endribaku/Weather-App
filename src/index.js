@@ -186,15 +186,21 @@ function weatherDescription(weatherData) {
 
     const temperatureDescriptionText = document.createElement("p");
     temperatureDescriptionText.classList.add("temperature-description");
-    temperatureDescriptionText.textContent = isFahrenheit ? temperature + "°F" : temperatureToCelsius(temperature);
+    temperatureDescriptionText.textContent = isFahrenheit ? temperature + "°F" : temperatureToCelsius(temperature).toFixed(1).toString().concat("°C");
  
     const locationDescriptionText = document.createElement("p");
     locationDescriptionText.classList.add("location-description");
     locationDescriptionText.textContent = weatherData.locationDescription;
 
-    descriptionContainer.appendChild(temperatureDescriptionText);
-    descriptionContainer.appendChild(locationDescriptionText);
+    const conditionsText = document.createElement("p");
+    conditionsText.classList.add("conditions-description");
+    conditionsText.textContent = weatherData.currentConditions.conditions;
 
+
+    descriptionContainer.appendChild(locationDescriptionText);
+    
+    weatherContainer.appendChild(conditionsText);
+    weatherContainer.appendChild(temperatureDescriptionText);
     weatherContainer.appendChild(descriptionContainer);
 
 }

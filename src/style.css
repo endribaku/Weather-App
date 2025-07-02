@@ -96,6 +96,16 @@ body {
     flex-direction: column;
     align-items: center;
     color:white;
+    max-width: 30vw;
+    min-width: 480px;
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .time-content {
@@ -122,7 +132,7 @@ body {
     font-size: 1.6rem;
 }
 
-.current-time, .current-date, .current-location, .temperature {
+.current-time, .current-date, .current-location, .temperature, .temperature-description, .conditions-description{
     text-shadow: -9px 8px 23px rgba(0,0,0,0.78);
     
 }
@@ -201,4 +211,26 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.temperature-description {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.weather-description-container {
+    background: rgba(131, 208, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 159, 255, 0.3);
+    box-sizing: border-box;
+    padding: 0px 24px;
+    min-width: 100%;
+}
+
+.conditions-description {
+    font-size: 1.5rem;
+    margin: 0;
 }
